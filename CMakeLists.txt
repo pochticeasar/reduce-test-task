@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.16)
-project(gpu24-backlog-ocl-prefsum-pochticeasar C)
-SET(CMAKE_C_STANDARD 11)
+project(reduce-test-task CXX)
+SET(CMAKE_CXX_STANDARD 17)
 find_package(OpenCL REQUIRED)
+find_package(OpenMP REQUIRED)
 
-set(CL_TARGET_OPENCL_VERSION "100")
-
-add_executable(gpu24-backlog-ocl-matmul-pochticeasar main.c gpu_realization.c)
-target_link_libraries(gpu24-backlog-ocl-matmul-pochticeasar OpenCL::OpenCL)
-target_include_directories (gpu24-backlog-ocl-matmul-pochticeasar PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+add_definitions(-DCL_TARGET_OPENCL_VERSION=200 -DCL_HPP_TARGET_OPENCL_VERSION=200 -DCL_HPP_ENABLE_EXCEPTIONS)
+add_executable(reduce-test-task main.cpp cpu_realization.cpp gpu_realization.cpp)
+target_link_libraries(reduce-test-task OpenCL::OpenCL OpenMP::OpenMP_CXX)
+target_include_directories (reduce-test-task PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

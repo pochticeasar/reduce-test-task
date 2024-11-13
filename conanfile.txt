@@ -1,0 +1,7 @@
+
+[requires]
+opencl-headers/2022.09.30
+
+[generators]
+CMakeDeps
+CMakeToolchain
