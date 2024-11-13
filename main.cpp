@@ -119,14 +119,19 @@ int main(int argc, char **argv) {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_real_distribution<float> dist(-100.0f, 100.0f); 
-
+    
     for (auto& value : array) {
         value = dist(gen);
     }
-    std::cout << "ok " << array.size() << std::endl; 
-    GPU_answer gpu_answer = gpu_calculate(current_device.value(), array);
+    float sum = 0;
+    for (auto e : array) {
+        sum += e;
+    }
+    std::cout << "ok " << array.size() << std::endl << "sum " << sum << std::endl; 
     CPU_answer cpu_answer = cpu_calculate(array);    
+    GPU_answer gpu_answer = gpu_calculate(current_device.value(), array);
     std::cout << "CPU ans: " << cpu_answer.sum << "\nTime in ms: " << cpu_answer.elapsed_time.count()/1000.0f << std::endl;
+    std::cout << "GPU ans: " << gpu_answer.sum << "\nTime in ms without memory: " << gpu_answer.time_without_memory << "\nTime in ms with memory: " << gpu_answer.time_with_memory<< std::endl;
     return 0;
 }
  
