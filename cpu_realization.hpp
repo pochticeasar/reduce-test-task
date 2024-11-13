@@ -1,11 +1,11 @@
-#pragma once 
+#pragma once
 
 #include <CL/opencl.hpp>
 #include <chrono>
 
-struct CPU_answer {
-    float sum;
+struct CPUAnswer {
+    float sum = 0;
     std::chrono::microseconds elapsed_time;
 };
 
-CPU_answer cpu_calculate(std::vector<cl_float> &array);
+CPUAnswer cpu_calculate(const std::vector<cl_float> &array);
